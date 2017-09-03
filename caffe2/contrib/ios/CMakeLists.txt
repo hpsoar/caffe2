@@ -10,6 +10,7 @@ if(IOS)
 
   if (USE_METAL)
     # metal/mpscnn files
+    add_definitions(-DCAFFE2_USE_MPSCNN)
     add_subdirectory(mpscnn)
   endif()
 endif()
