@@ -10,7 +10,7 @@
 CAFFE2_ROOT="$( cd "$(dirname "$0")"/.. ; pwd -P)"
 echo "Caffe2 codebase root is: $CAFFE2_ROOT"
 # We are going to build the target into build_ios.
-BUILD_ROOT=$CAFFE2_ROOT/build_ios
+BUILD_ROOT=$CAFFE2_ROOT/xcode_ios
 mkdir -p $BUILD_ROOT
 echo "Build Caffe2 ios into: $BUILD_ROOT"
 
@@ -29,12 +29,13 @@ if [ -z ${IOS_PLATFORM+x} ]; then
     IOS_PLATFORM=OS
 fi
 
-cmake .. \
+cmake -BXcode -GXcode .. \
     -DCMAKE_TOOLCHAIN_FILE=$CAFFE2_ROOT/third_party/ios-cmake/toolchain/iOS.cmake\
     -DCMAKE_INSTALL_PREFIX=../install \
     -DCMAKE_BUILD_TYPE=Release \
     -DIOS_PLATFORM=${IOS_PLATFORM} \
     -DUSE_CUDA=OFF \
+    -DUSE_NCCL=OFF \
     -DUSE_OPENCV=OFF \
     -DBUILD_TEST=OFF \
     -DBUILD_BINARY=OFF \
